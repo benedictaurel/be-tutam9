@@ -125,9 +125,10 @@ exports.updateCompleteTodo = async (req, res) => {
         );
     }
     try {
-        const todo = await todoRepository.updateTodo(req.params.id, {
+        const todo = await todoRepository.updateCompleteTodo(req.params.id, {
             iscompleted: req.body.iscompleted,
         });
+        console.log(todo);
         if (!todo) {
             return baseResponse(res, false, 404, "Todo not found", "null");
         }

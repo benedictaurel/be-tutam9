@@ -46,11 +46,11 @@ exports.updateTodo = async (id, todo) => {
     }
 };
 
-exports.updateCompleteTodo = async (id, iscompleted) => {
+exports.updateCompleteTodo = async (id, todo) => {
     try {
         const res = await db.query(
             "UPDATE posts SET iscompleted = $1 WHERE id = $2 RETURNING *",
-            [iscompleted, id]
+            [todo.iscompleted, id]
         );
         return res.rows[0];
     } catch (error) {
