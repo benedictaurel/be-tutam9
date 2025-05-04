@@ -3,8 +3,8 @@ const db = require("../database/pg.database");
 exports.createTodo = async (todo) => {
     try {
         const res = await db.query(
-        "INSERT INTO posts (title, deadline, user_id) VALUES ($1, $2, $3) RETURNING *",
-        [todo.title, todo.deadline, todo.user_id]
+        "INSERT INTO posts (title, deadline, isCompleted, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
+        [todo.title, todo.deadline, todo.isCompleted, todo.user_id]
         );
         return res.rows[0];
     } catch (error) {
@@ -33,8 +33,8 @@ exports.deleteTodo = async (id) => {
 exports.updateTodo = async (id, todo) => {
     try {
         const res = await db.query(
-            "UPDATE posts SET title = $1, deadline = $2 WHERE id = $3 RETURNING *",
-            [todo.title, todo.deadline, id]
+            "UPDATE posts SET title = $1, deadline = $2, isCompleted = $3, WHERE id = $4 RETURNING *",
+            [todo.title, todo.deadline, todo.isCompleted, id]
         );
         return res.rows[0];
     } catch (error) {
