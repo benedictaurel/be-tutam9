@@ -3,8 +3,8 @@ const db = require("../database/pg.database");
 exports.createTodo = async (todo) => {
     try {
         const res = await db.query(
-        "INSERT INTO posts (title, deadline, isCompleted, user_id) VALUES ($1, $2, $3, $4) RETURNING *",
-        [todo.title, todo.deadline, todo.isCompleted, todo.user_id]
+        "INSERT INTO posts (title, deadline, user_id) VALUES ($1, $2, $3) RETURNING *",
+        [todo.title, todo.deadline, todo.user_id]
         );
         return res.rows[0];
     } catch (error) {
@@ -41,3 +41,15 @@ exports.updateTodo = async (id, todo) => {
         console.error("Error updating todo", error);
     }
 };
+
+exports.updateCompleteTodo = async (id, isCompleted) => {
+    try {
+        const res = await db.query(
+            "UPDATE posts SET isCompleted = $1 WHERE id = $2 RETURNING *",
+            [isCompleted, id]
+        );
+        return res.rows[0];
+    } catch (error) {
+        console.error("Error updating todo completion", error);
+    }
+}

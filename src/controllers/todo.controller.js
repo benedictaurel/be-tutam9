@@ -101,3 +101,32 @@ exports.updateTodo = async (req, res) => {
         );
     }
 };
+
+exports.updateCompleteTodo = async (req, res) => {
+    if (!req.params.id) {
+        return baseResponse(
+            res,
+            false,
+            400,
+            "ID is required",
+            "null"
+        );
+    }
+    try {
+        const todo = await todoRepository.updateTodo(req.params.id, {
+            isCompleted: req.body.isCompleted,
+        });
+        if (!todo) {
+            return baseResponse(res, false, 404, "Todo not found", "null");
+        }
+        baseResponse(res, true, 200, "Todo updated successfully", todo);
+    } catch (error) {
+        baseResponse(
+            res,
+            false,
+            500,
+            error.message || "Error updating todo",
+            error
+        );
+    }
+}
