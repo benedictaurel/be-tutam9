@@ -33,8 +33,8 @@ exports.deleteTodo = async (id) => {
 exports.updateTodo = async (id, todo) => {
     try {
         const res = await db.query(
-            "UPDATE posts SET title = $1, deadline = $2, isCompleted = $3 WHERE id = $4 RETURNING *",
-            [todo.title, todo.deadline, todo.isCompleted, id]
+            "UPDATE posts SET title = $1, deadline = $2, iscompleted = $3 WHERE id = $4 RETURNING *",
+            [todo.title, todo.deadline, todo.iscompleted, id]
         );
         return res.rows[0];
     } catch (error) {
@@ -42,11 +42,11 @@ exports.updateTodo = async (id, todo) => {
     }
 };
 
-exports.updateCompleteTodo = async (id, isCompleted) => {
+exports.updateCompleteTodo = async (id, iscompleted) => {
     try {
         const res = await db.query(
-            "UPDATE posts SET isCompleted = $1 WHERE id = $2 RETURNING *",
-            [isCompleted, id]
+            "UPDATE posts SET iscompleted = $1 WHERE id = $2 RETURNING *",
+            [iscompleted, id]
         );
         return res.rows[0];
     } catch (error) {

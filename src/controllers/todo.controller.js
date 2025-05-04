@@ -85,7 +85,7 @@ exports.updateTodo = async (req, res) => {
         const todo = await todoRepository.updateTodo(req.params.id, {
             title: req.body.title,
             deadline: req.body.deadline,
-            isCompleted: req.body.isCompleted,
+            iscompleted: req.body.iscompleted,
         });
         if (!todo) {
             return baseResponse(res, false, 404, "Todo not found", "null");
@@ -114,7 +114,7 @@ exports.updateCompleteTodo = async (req, res) => {
     }
     try {
         const todo = await todoRepository.updateTodo(req.params.id, {
-            isCompleted: req.body.isCompleted,
+            iscompleted: req.body.iscompleted,
         });
         if (!todo) {
             return baseResponse(res, false, 404, "Todo not found", "null");
