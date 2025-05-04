@@ -30,8 +30,20 @@ exports.createTodo = async (req, res) => {
 };
 
 exports.getAllTodos = async (req, res) => {
+    const userId = req.query.user_id;
+
+    if (!userId) {
+        return baseResponse(
+            res,
+            false,
+            400,
+            "User ID is required",
+            "null"
+        );
+    }
+
     try {
-        const todos = await todoRepository.getAllTodos();
+        const todos = await todoRepository.getAllTodosByUserId(userId);
         baseResponse(res, true, 200, "Todos retrieved successfully", todos);
     } catch (error) {
         baseResponse(

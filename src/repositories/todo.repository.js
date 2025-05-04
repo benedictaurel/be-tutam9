@@ -12,12 +12,16 @@ exports.createTodo = async (todo) => {
     }
 };
 
-exports.getAllTodos = async () => {
+exports.getAllTodosByUserId = async (userId) => {
     try {
-        const res = await db.query("SELECT * FROM posts");
+        const res = await db.query(
+            "SELECT * FROM posts WHERE user_id = $1",
+            [userId]
+        );
         return res.rows;
     } catch (error) {
-        console.error("Error getting all todos", error);
+        console.error("Error getting todos by user_id", error);
+        throw error;
     }
 };
 
