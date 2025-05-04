@@ -33,7 +33,7 @@ exports.deleteTodo = async (id) => {
 exports.updateTodo = async (id, todo) => {
     try {
         const res = await db.query(
-            "UPDATE posts SET title = $1, deadline = $2, isCompleted = $3, WHERE id = $4 RETURNING *",
+            "UPDATE posts SET title = $1, deadline = $2, isCompleted = $3 WHERE id = $4 RETURNING *",
             [todo.title, todo.deadline, todo.isCompleted, id]
         );
         return res.rows[0];
